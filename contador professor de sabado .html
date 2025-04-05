@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador Numérico</title>
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+    
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+    
+    .display {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin: 1.5rem 0;
+      color: #3498db;
+      min-height: 5rem;
+    }
+    
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 0.8rem 1.6rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-increment {
+      background-color: #2ecc71;
+      color: white;
+    }
+    
+    .btn-decrement {
+      background-color: #e74c3c;
+      color: white;
+    }
+    
+    .btn-reset {
+      background-color: #f39c12;
+      color: white;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Contador Numérico</h1>
+    
+    <div class="display" id="counterDisplay">0</div>
+    
+    <div class="btn-group">
+      <button class="btn btn-increment" id="incrementBtn">Aumentar</button>
+      <button class="btn btn-decrement" id="decrementBtn">Diminuir</button>
+      <button class="btn btn-reset" id="resetBtn">Reiniciar</button>
+    </div>
+  </main>
+
+  <script>
+    // Elementos do DOM
+    const display = document.getElementById('counterDisplay');
+    const incrementBtn = document.getElementById('incrementBtn');
+    const decrementBtn = document.getElementById('decrementBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    
+    // Estado do contador
+    let counterValue = 0;
+    
+    // Atualiza o display
+    const updateDisplay = () => {
+      display.textContent = counterValue;
+    };
+    
+    // Manipuladores de eventos
+    const handleIncrement = () => {
+      counterValue += 1;
+      updateDisplay();
+    };
+    
+    const handleDecrement = () => {
+      counterValue -= 1;
+      updateDisplay();
+    };
+    
+    const handleReset = () => {
+      counterValue = 0;
+      updateDisplay();
+    };
+    
+    // Adiciona event listeners
+    incrementBtn.addEventListener('click', handleIncrement);
+    decrementBtn.addEventListener('click', handleDecrement);
+    resetBtn.addEventListener('click', handleReset);
+    
+    // Inicializa o display
+    updateDisplay();
+  </script>
+</body>
+</html>

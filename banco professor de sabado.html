@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💰 Sistema Financeiro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .finance-app {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .balance {
+      font-size: 28px;
+      margin: 20px 0;
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .deposit {
+      background: #3498db;
+      color: white;
+    }
+
+    .withdraw {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .check-balance {
+      background: #f39c12;
+      color: white;
+    }
+
+    .exit {
+      background: #7f8c8d;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .transaction-msg {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="finance-app">
+    <h1>💰 Sistema Financeiro</h1>
+    <div class="balance" id="balance">Saldo: R$ 0,00</div>
+    
+    <div class="actions">
+      <button class="deposit" onclick="handleDeposit()">Depositar</button>
+      <button class="withdraw" onclick="handleWithdraw()">Sacar</button>
+      <button class="check-balance" onclick="showBalance()">Ver Saldo</button>
+      <button class="exit" onclick="exitApp()">Sair</button>
+    </div>
+
+    <div id="transactionMsg" class="transaction-msg"></div>
+  </div>
+
+  <script>
+    let saldo = 0;
+    const balanceElement = document.getElementById('balance');
+    const transactionMsg = document.getElementById('transactionMsg');
+
+    // Atualiza o saldo na tela
+    function updateBalance() {
+      balanceElement.textContent = `Saldo: R$ ${saldo.toFixed(2)}`;
+    }
+
+    // Mostra mensagem de transação
+    function showMessage(message, isSuccess) {
+      transactionMsg.textContent = message;
+      transactionMsg.className = `transaction-msg ${isSuccess ? 'success' : 'error'}`;
+      transactionMsg.style.display = 'block';
+      
+      setTimeout(() => {
+        transactionMsg.style.display = 'none';
+      }, 3000);
+    }
+
+    // Função para depositar
+    function handleDeposit() {
+      const amount = parseFloat(prompt("Quanto você deseja depositar?"));
+      
+      if (isNaN(amount)) {
+        showMessage("❌ Valor inválido!", false);
+      } else if (amount <= 0) {
+        showMessage("❌ O valor deve ser positivo!", false);
+      } else {
+        saldo += amount;
+        updateBalance();
+        showMessage(`✅ Depositado R$ ${amount.toFixed(2)} com sucesso!`, true);
+      }
+    }
+
+    // Função para sacar
+    function handleWithdraw() {
+      const amount = parseFloat(prompt("Quanto você deseja sacar?"));
+      
+      if (isNaN(amount)) {
+        showMessage("❌ Valor inválido!", false);
+      } else if (amount <= 0) {
+        showMessage("❌ O valor deve ser positivo!", false);
+      } else if (amount > saldo) {
+        showMessage("❌ Saldo insuficiente!", false);
+      } else {
+        saldo -= amount;
+        updateBalance();
+        showMessage(`✅ Saque de R$ ${amount.toFixed(2)} realizado com sucesso!`, true);
+      }
+    }
+
+    // Função para ver saldo
+    function showBalance() {
+      showMessage(`Seu saldo atual é: R$ ${saldo.toFixed(2)}`, true);
+    }
+
+    // Função para sair
+    function exitApp() {
+      if (confirm("Deseja realmente sair?")) {
+        showMessage("Até logo! 👋", true);
+        setTimeout(() => {
+          alert("Obrigado por usar nosso sistema!");
+        }, 1000);
+      }
+    }
+
+    // Inicializa o saldo
+    updateBalance();
+  </script>
+</body>
+</html>
